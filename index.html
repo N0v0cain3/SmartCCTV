@@ -83,14 +83,7 @@
                     <button type="button" class="btn btn-outline-secondary" id="btnGiveCommand">Give Commands</button>
                     <span id='message'></span>
                     <br><br>
-
-                    <input id='chkSteve' type="checkbox"> Steve Rogers
-                    <br>
-                    <input id='chkTony' type="checkbox"> Tony Stark
-                    <br>
-                    <input id='chkBruce' type="checkbox"> Bruce Banner
-                    <br>
-                    <input id='chkNick' type="checkbox"> Nick Fury
+                    <p style="color:rgb(216, 199, 202)">Try 'check mask', 'open camera'</p>
                 </div>
             </div>
         </div>
@@ -128,20 +121,7 @@
         var last = event.results.length - 1;
         var command = event.results[last][0].transcript;
         message.textContent = 'Voice Input: ' + command + '.';
-
-        if (command.toLowerCase() === 'select steve') {
-            document.querySelector('#chkSteve').checked = true;
-        }
-        else if (command.toLowerCase() === 'select tony') {
-            document.querySelector('#chkTony').checked = true;
-        }
-        else if (command.toLowerCase() === 'select bruce') {
-            document.querySelector('#chkBruce').checked = true;
-        }
-        else if (command.toLowerCase() === 'select nick') {
-            document.querySelector('#chkNick').checked = true;
-        }
-        else if (command.toLowerCase() === 'open camera') {
+        if (command.toLowerCase() === 'open camera') {
             let url = window.location.origin
             location.href = url + "/SmartCCTV/faceRecog.html";
         }
