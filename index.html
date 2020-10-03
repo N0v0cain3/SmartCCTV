@@ -11,7 +11,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <a class="navbar-brand" href="#">Smart CCTV</a>
+        <a class="navbar-brand" style="color: aliceblue;" href="#">Smart CCTV</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,29 +19,78 @@
         <div class="collapse navbar-collapse navbar-right" id="navbarNav">
             <ul class=" navbar-nav ml-auto ">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#" style="color: aliceblue;">Home <span
+                    <a class="nav-link" href="#" style="color: aliceblue;">Plans <span
                             class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: aliceblue;" href="#">Features</a>
+                    <a class="nav-link" style="color: aliceblue;" href="#">View Recordings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: aliceblue;" href="#">Pricing</a>
+                    <a class="nav-link" style="color: aliceblue;" href="#">Open Camera</a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa fa-user-o" style="margin-left:10px; color:aliceblue; margin-top: 13px;"
+                        aria-hidden="true"></i>
+                </li>
+                <li>
+                    <i class="fa fa-sign-out" aria-hidden="true"
+                        style="margin-left:20px; color:aliceblue; margin-top: 13px;"></i>
                 </li>
             </ul>
         </div>
     </nav>
     <div class="container">
         <div class="row">
-            <div class="col-md">
-
-                <H1 style="margin: 50px;"> Top notch camera tech.</H1>
-                <h5 style="margin-left: 50px;" id="typewriter"></h5>
-                <h5 style="margin-left: 50px;" id="typewriter"></h5>
+            <div class="col-md-6">
+                <div data-aos="fade-up">
+                    <H1 style="margin: 50px;"> Top notch camera tech.</H1>
+                </div>
+                <h4 style="margin-left: 50px; color:pink" id="typewriter"></h4>
+                <h4 style="margin-left: 50px;" id="typewriter"></h4>
             </div>
-            <div class="col-md">
+            <div class="col-md-6">
                 <div data-aos="zoom-in-up" data-aos-duration="3000">
                     <img src="./assets/img/logo.png" height="300px" style="margin-left: 100px;" width="400px" alt="">
+                </div>
+            </div>
+        </div>
+        <div style="margin-top:100px; margin-left:50px " class="row">
+            <div class="col-md-6">
+                <div data-aos="fade-right">
+                    <h2>Features </h2>
+                </div>
+                <ul style="margin-top:50px;">
+                    <div data-aos="flip-left">
+                        <li style="font-size: 20px; color:pink; margin-top:5px  "> Speech Recognition
+                        </li>
+
+                        <li style="font-size: 20px; color:pink; margin-top:5px  ">
+                            Object Detection
+                        </li>
+
+                        <li style="font-size: 20px; color:pink; margin-top:5px  ">
+                            Facial Recognition
+                        </li>
+
+                        <li style="font-size: 20px; color:pink; margin-top:5px  ">
+                            Notifies user
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <div style="margin-top: 150px; margin-left:150px">
+                    <button type="button" class="btn btn-outline-secondary" id="btnGiveCommand">Give Commands</button>
+                    <span id='message'></span>
+                    <br><br>
+
+                    <input id='chkSteve' type="checkbox"> Steve Rogers
+                    <br>
+                    <input id='chkTony' type="checkbox"> Tony Stark
+                    <br>
+                    <input id='chkBruce' type="checkbox"> Bruce Banner
+                    <br>
+                    <input id='chkNick' type="checkbox"> Nick Fury
                 </div>
             </div>
         </div>
@@ -52,12 +101,63 @@
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- Latest compiled JavaScript -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     AOS.init();
 </script>
 <script src="./assets/js/index.js"></script>
+<script>
+    var message = document.querySelector('#message');
+
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+
+    var grammar = '#JSGF V1.0;'
+
+    var recognition = new SpeechRecognition();
+    var speechRecognitionList = new SpeechGrammarList();
+    speechRecognitionList.addFromString(grammar, 1);
+    recognition.grammars = speechRecognitionList;
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    recognition.onresult = function (event) {
+        var last = event.results.length - 1;
+        var command = event.results[last][0].transcript;
+        message.textContent = 'Voice Input: ' + command + '.';
+
+        if (command.toLowerCase() === 'select steve') {
+            document.querySelector('#chkSteve').checked = true;
+        }
+        else if (command.toLowerCase() === 'select tony') {
+            document.querySelector('#chkTony').checked = true;
+        }
+        else if (command.toLowerCase() === 'select bruce') {
+            document.querySelector('#chkBruce').checked = true;
+        }
+        else if (command.toLowerCase() === 'select nick') {
+            document.querySelector('#chkNick').checked = true;
+        }
+    };
+
+    recognition.onspeechend = function () {
+        recognition.stop();
+    };
+
+    recognition.onerror = function (event) {
+        message.textContent = 'Error occurred in recognition: ' + event.error;
+    }
+
+    document.querySelector('#btnGiveCommand').addEventListener('click', function () {
+        recognition.start();
+
+    });
+
+
+</script>
 
 
 </html>
