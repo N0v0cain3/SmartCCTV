@@ -26,7 +26,7 @@
                     <a class="nav-link" style="color: aliceblue;" href="#">View Recordings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: aliceblue;" href="/faceRecog.html">Open Camera</a>
+                    <a class="nav-link" style="color: aliceblue;" href="./faceRecog.html">Open Camera</a>
                 </li>
                 <li class="nav-item">
                     <i class="fa fa-user-o" style="margin-left:10px; color:aliceblue; margin-top: 13px;"
@@ -142,8 +142,10 @@
             document.querySelector('#chkNick').checked = true;
         }
         else if (command.toLowerCase() === 'open camera') {
-            location.href = "/faceRecog.html"
+            let url = window.location.origin
+            location.href = url + "/SmartCCTV/faceRecog.html";
         }
+
     };
 
     recognition.onspeechend = function () {
