@@ -143,6 +143,9 @@ app.post("/mail/:source", async (req, res) => {
             if (error) {
                 // res.status(500).json(("could not send "));
                 console.log(error)
+                res.status(400).json({
+                    message: "unsuccessful"
+                })
                 console.log("fail ", mailOptions.to);
             } else {
                 console.log("gg", mailOptions.to);
