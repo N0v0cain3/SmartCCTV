@@ -254,7 +254,7 @@
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "https://smartcctv.herokuapp.com/mail/fire", true);
             xhr.setRequestHeader('Content-Type', 'application/json');
-            //   xhr.send(JSON.stringify(data));
+            xhr.send();
             xhr.onload = function () {
                 // console.log(this.responseText);
                 if (this.status == 200) {
