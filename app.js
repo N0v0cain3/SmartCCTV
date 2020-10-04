@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 //     next(error);
 // });
 
-app.post("/mail/:source", async (req, res) => {
+app.get("/mail/:source", async (req, res) => {
 
 
     let transporter = nodemailer.createTransport({
