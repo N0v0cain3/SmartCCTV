@@ -31,7 +31,7 @@ app.get("/mail/:source", async (req, res) => {
 
 
     let transporter = nodemailer.createTransport({
-        service: "gmail.com",
+        service: "gmail",
         port: 465,
         secure: true,
         auth: {
