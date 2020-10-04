@@ -33,6 +33,7 @@ app.get("/mail/:source", async (req, res) => {
     let transporter = nodemailer.createTransport({
         service: "smtp.gmail.com",
         port: 465,
+        secure: true,
         auth: {
             user: process.env.EMAIL, // your gmail address
             pass: process.env.PASSWORD, // your gmail password
