@@ -83,7 +83,7 @@
                     <button type="button" class="btn btn-outline-secondary" id="btnGiveCommand">Give Commands</button>
                     <span id='message'></span>
                     <br><br>
-                    <p style="color:rgb(216, 199, 202)">Try 'check mask', 'open camera'</p>
+                    <p style="color:rgb(216, 199, 202)">Try 'check mask', 'open camera', 'start recording'</p>
                 </div>
             </div>
         </div>
@@ -129,6 +129,12 @@
             let url = window.location.origin
             location.href = url + "/SmartCCTV/mask.html";
         }
+        else if (command.toLowerCase() === 'start recording') {
+            let url = window.location.origin
+            location.href = url + "/SmartCCTV/record.html";
+        }
+
+
 
 
     };

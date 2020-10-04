@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Capture video</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+
+<body
+    style="background-image: url(https://images.unsplash.com/photo-1520256839924-866b3dc87c71?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80);background-repeat:no-repeat;background-size:cover;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <a class="navbar-brand" style="color: aliceblue;" href="/index.html">Smart CCTV</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse navbar-right" id="navbarNav">
+            <ul class=" navbar-nav ml-auto ">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" style="color: aliceblue;">Plans <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: aliceblue;" href="#">View Recordings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: aliceblue;" href="./faceRecog.html">Open Camera</a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa fa-user-o" style="margin-left:10px; color:aliceblue; margin-top: 13px;"
+                        aria-hidden="true"></i>
+                </li>
+                <li>
+                    <i class="fa fa-sign-out" aria-hidden="true"
+                        style="margin-left:20px; color:aliceblue; margin-top: 13px;"></i>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <h1 style="text-align:center;color: aliceblue;">Video Capture</h1>
+    </header>
+    <main>
+
+        <div style="text-align:center;">
+            <div data-aos="fade-right">
+                <p><button id="btnStart" class="btn btn-sm btn-primary">START RECORDING</button>
+            </div>
+
+            <div data-aos="fade-left"> <button id="btnStop" class="btn btn-sm  btn-danger">STOP RECORDING</button>
+                </p>
+            </div>
+        </div>
+        <video controls></video>
+
+        <video id="vid2" controls></video>
+        <div style="text-align: center;">
+            <button type="button" id="btnGiveCommand" class="btn btn-danger btn-lg" data-toggle="button"
+                aria-pressed="false" autocomplete="off">
+                Emergency
+            </button>
+            <span id='message'></span>
+
+        </div>
+        <!-- could save to canvas and do image manipulation and saving too -->
+    </main>
+    <script>
+
+        let constraintObj = {
+            audio: false,
+            video: {
+                facingMode: "user",
+                width: { min: 640, ideal: 1280, max: 1920 },
+                height: { min: 480, ideal: 720, max: 1080 }
+            }
+        };
+        // width: 1280, height: 720  -- preference only
+        // facingMode: {exact: "user"}
+        // facingMode: "environment"
+
+        //handle older browsers that might implement getUserMedia in some way
+        if (navigator.mediaDevices === undefined) {
+            navigator.mediaDevices = {};
+            navigator.mediaDevices.getUserMedia = function (constraintObj) {
+                let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                if (!getUserMedia) {
+                    return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+                }
+                return new Promise(function (resolve, reject) {
+                    getUserMedia.call(navigator, constraintObj, resolve, reject);
+                });
+            }
+        } else {
+            navigator.mediaDevices.enumerateDevices()
+                .then(devices => {
+                    devices.forEach(device => {
+                        console.log(device.kind.toUpperCase(), device.label);
+                        //, device.deviceId
+                    })
+                })
+                .catch(err => {
+                    console.log(err.name, err.message);
+                })
+        }
+
+        navigator.mediaDevices.getUserMedia(constraintObj)
+            .then(function (mediaStreamObj) {
+                //connect the media stream to the first video element
+                let video = document.querySelector('video');
+                if ("srcObject" in video) {
+                    video.srcObject = mediaStreamObj;
+                } else {
+                    //old version
+                    video.src = window.URL.createObjectURL(mediaStreamObj);
+                }
+
+                video.onloadedmetadata = function (ev) {
+                    //show in the video element what is being captured by the webcam
+                    video.play();
+                };
+
+                //add listeners for saving video/audio
+                let start = document.getElementById('btnStart');
+                let stop = document.getElementById('btnStop');
+                let vidSave = document.getElementById('vid2');
+                let mediaRecorder = new MediaRecorder(mediaStreamObj);
+                let chunks = [];
+
+                start.addEventListener('click', (ev) => {
+                    mediaRecorder.start();
+                    console.log(mediaRecorder.state);
+                })
+                stop.addEventListener('click', (ev) => {
+                    mediaRecorder.stop();
+                    console.log(mediaRecorder.state);
+                });
+                mediaRecorder.ondataavailable = function (ev) {
+                    chunks.push(ev.data);
+                }
+                mediaRecorder.onstop = (ev) => {
+                    let blob = new Blob(chunks, { 'type': 'video/mp4;' });
+                    chunks = [];
+                    let videoURL = window.URL.createObjectURL(blob);
+                    vidSave.src = videoURL;
+                }
+            })
+            .catch(function (err) {
+                console.log(err.name, err.message);
+            });
+
+    </script>
+</body>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="./assets/css/main.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Latest compiled JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    AOS.init();
+</script>
+<script>
+    var message = document.querySelector('#message');
+
+    var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+    var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+
+    var grammar = '#JSGF V1.0;'
+
+    var recognition = new SpeechRecognition();
+    var speechRecognitionList = new SpeechGrammarList();
+    speechRecognitionList.addFromString(grammar, 1);
+    recognition.grammars = speechRecognitionList;
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+
+    recognition.onresult = function (event) {
+        var last = event.results.length - 1;
+        var command = event.results[last][0].transcript;
+        message.textContent = 'Voice Input: ' + command + '.';
+        if (command.toLowerCase() === 'open camera') {
+            let url = window.location.origin
+            location.href = url + "/SmartCCTV/faceRecog.html";
+        }
+        else if (command.toLowerCase() === 'check mask') {
+            let url = window.location.origin
+            location.href = url + "/SmartCCTV/mask.html";
+        }
+        else if (command.toLowerCase() === 'start recording') {
+            let url = window.location.origin
+            location.href = url + "/SmartCCTV/record.html";
+        }
+
+
+
+
+    };
+
+    recognition.onspeechend = function () {
+        recognition.stop();
+    };
+
+    recognition.onerror = function (event) {
+        message.textContent = 'Error occurred in recognition: ' + event.error;
+    }
+
+    document.querySelector('#btnGiveCommand').addEventListener('click', function () {
+        recognition.start();
+
+    });
+
+
+</script>
+
+</html>
