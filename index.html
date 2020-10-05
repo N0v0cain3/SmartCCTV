@@ -11,7 +11,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light ">
-        <a class="navbar-brand" style="color: aliceblue;" href="/index.html">Smart CCTV</a>
+        <a class="navbar-brand" style="color: aliceblue;" href="./index.html">Smart CCTV</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -83,7 +83,8 @@
                     <button type="button" class="btn btn-outline-secondary" id="btnGiveCommand">Give Commands</button>
                     <span id='message'></span>
                     <br><br>
-                    <p style="color:rgb(216, 199, 202)">Try 'check mask', 'open camera', 'start recording'</p>
+                    <p style="color:rgb(216, 199, 202)">Try 'check mask', 'open camera', 'detect object','start
+                        recording'</p>
                 </div>
             </div>
         </div>
@@ -133,7 +134,10 @@
             let url = window.location.origin
             location.href = url + "/SmartCCTV/record.html";
         }
-
+        else if (command.toLowerCase() === 'detect object') {
+            let url = window.location.origin
+            location.href = url + "/SmartCCTV/object.html";
+        }
 
 
 
