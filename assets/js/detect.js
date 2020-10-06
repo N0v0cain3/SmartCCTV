@@ -38,7 +38,7 @@
                 context.rect(start[0], start[1], size[0], size[1]);
                 context.stroke();
                 var prob = (probability[0] * 100).toPrecision(5).toString();
-                var text = prob + "% Shivam Mehta";
+                var text = prob + "%";
                 context.fillStyle = "red";
                 context.font = "13pt sans-serif";
                 context.fillText(text, start[0] + 5, start[1] + 20);
