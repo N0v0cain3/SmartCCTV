@@ -40,56 +40,65 @@
         </div>
     </nav>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div data-aos="fade-up">
-                    <H1 style="margin: 50px;"> Top notch camera tech.</H1>
-                </div>
-                <h4 style="margin-left: 50px; color:pink" id="typewriter"></h4>
-                <h4 style="margin-left: 50px;" id="typewriter"></h4>
-            </div>
-            <div class="col-md-6">
-                <div data-aos="zoom-in-up" data-aos-duration="3000">
-                    <img src="./assets/img/logo.png" height="300px" style="margin-left: 100px;" width="400px" alt="">
-                </div>
-            </div>
-        </div>
-        <div style="margin-top:100px; margin-left:50px " class="row">
-            <div class="col-md-6">
-                <div data-aos="fade-right">
-                    <h2>Features </h2>
-                </div>
-                <ul style="margin-top:50px;">
-                    <div data-aos="flip-left">
-                        <li style="font-size: 20px; color:pink; margin-top:5px  "> Speech Recognition
-                        </li>
-
-                        <li style="font-size: 20px; color:pink; margin-top:5px  ">
-                            Object Detection
-                        </li>
-
-                        <li style="font-size: 20px; color:pink; margin-top:5px  ">
-                            Facial Recognition
-                        </li>
-
-                        <li style="font-size: 20px; color:pink; margin-top:5px  ">
-                            Notifies user
-                        </li>
+        <div id="particles-js">
+            <div class="row">
+                <div class="col-md-6">
+                    <div data-aos="fade-up">
+                        <H1 style="margin: 50px;"> Top notch camera tech.</H1>
                     </div>
-                </ul>
+                    <h4 style="margin-left: 50px; color:pink" id="typewriter"></h4>
+                    <h4 style="margin-left: 50px;" id="typewriter"></h4>
+                </div>
+                <div class="col-md-6">
+                    <div data-aos="zoom-in-up" data-aos-duration="3000">
+                        <img src="./assets/img/logo.png" height="300px" style="margin-left: 100px;" width="400px"
+                            alt="">
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <div style="margin-top: 100px; margin-left:150px">
-                    <button type="button" class="btn btn-outline-secondary" id="btnGiveCommand">Give Commands</button>
-                    <span id='message'></span>
-                    <br><br>
-                    <p style="color:rgb(216, 199, 202)">Try 'check mask', 'open camera', 'detect object','start
-                        recording'</p>
+            <div style="margin-top:100px; margin-left:50px " class="row">
+                <div class="col-md-6">
+                    <div data-aos="fade-right">
+                        <h2>Features </h2>
+                    </div>
+                    <ul style="margin-top:50px;">
+                        <div data-aos="flip-left">
+                            <li style="font-size: 20px; color:pink; margin-top:5px  "> Speech Recognition
+                            </li>
+
+                            <li style="font-size: 20px; color:pink; margin-top:5px  ">
+                                Object Detection
+                            </li>
+
+                            <li style="font-size: 20px; color:pink; margin-top:5px  ">
+                                Facial Recognition
+                            </li>
+
+                            <li style="font-size: 20px; color:pink; margin-top:5px  ">
+                                Notifies user
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div style="margin-top: 100px; margin-left:150px">
+                        <button type="button" class="btn btn-outline-secondary" id="btnGiveCommand">Give
+                            Commands</button>
+                        <span id='message'></span>
+                        <br><br>
+                        <p style="color:rgb(216, 199, 202)">Try 'check mask', 'open camera', 'detect object','start
+                            recording'</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="./assets/css/main.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -103,6 +112,7 @@
     AOS.init();
 </script>
 <script src="./assets/js/index.js"></script>
+
 <script>
     var message = document.querySelector('#message');
 

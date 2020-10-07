@@ -66,7 +66,7 @@ app.get("/mail/:source", async (req, res) => {
                                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                         <tr>
                                             <td style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
-                                                <b>Hello Jhanak!,  </b>
+                                                <b>Alert User!,  </b>
                                             </td>
                                         </tr>
                                         <tr>
