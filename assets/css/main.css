@@ -20,3 +20,11 @@
     background-size: cover;
 
   }
+   .btn-outline-secondary{
+    color: #110c18 !important;
+    border-radius: 10%;
+  }
+  .btn-outline-secondary:hover{
+    background-color: #110c18 !important;
+    color:#ffc2c3 !important
+  }
